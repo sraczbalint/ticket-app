@@ -1,8 +1,6 @@
 import React, { FunctionComponent, PropsWithChildren } from "react";
-import { useDispatch, useSelector } from "react-redux";
 import { Button } from "atoms/Button";
-import { PageProps } from "slice/wizardPageSlice";
-import { RootState } from "store";
+import { BreadCrumbs } from "molecules/BreadCrumbs";
 
 interface WizardLayoutProps {
   // height?: string;
@@ -15,35 +13,35 @@ const WizardLayout: FunctionComponent<PropsWithChildren<WizardLayoutProps>> = ({
   forwardClick,
   backwardClick,
 }) => {
-  const page: PageProps = useSelector((state: RootState) => state.page);
   return (
-    <div>
-      <div className="">
-        <img
-          alt="background"
-          className="object-cover m-[-10px] h-full w-full"
-          src="https://img.freepik.com/free-photo/beautiful-shot-live-concert-performance-with-yellow-light-show-big-crowd-cheering_181624-55905.jpg?w=2000"
-        />
-      </div>
-      <div className="absolute flex flex-col bg-white top-[200px]">
-        <div className=" flex flex-col pb-[85px] overflow-y ">{children}</div>
-        <div className="flex flex-row justify-between">
-          {String(page) === "Jegyek kiválasztása" && (
-            <Button
-              onClick={() => forwardClick}
-              className=" flex justify-center grow py-2 text-bold text-lg text-white rounded-3xl bg-gradient-to-r from-pink-500 to-purple-900"
-            >
-              Következő
-            </Button>
-          )}
-          {String(page) === "Jegyek küldése" && (
-            <Button
-              onClick={() => backwardClick}
-              className=" flex justify-center grow py-2 text-bold text-lg text-white rounded-3xl bg-gradient-to-r from-pink-500 to-purple-900"
-            >
-              Előző
-            </Button>
-          )}
+    <div className="flex w-screen h-screen bg-black">
+      <div
+        className=""
+        // style={{
+        //   backgroundImage:
+        //     "url('https://source.unsplash.com/07fzqFEfLlo/1920x1080')",
+        // }}
+      ></div>
+      <div className=" flex flex-col m-auto bg-[#c8c8c8] w-[600px] p-[16px] rounded-lg">
+        <h2 className="text-center text-[1200] mb-[8px] text-[24px]">BookY</h2>
+        <BreadCrumbs />
+        <hr className="h-px my-1 bg-g border-0 bg-[#5d5d5d]"></hr>
+        <div className=" flex flex-col pb-[85px] overflow-y items-center ">
+          {children}
+        </div>
+        <div className="flex justify-between">
+          <Button
+            onClick={() => forwardClick}
+            className="grow py-2 text-bold  w-[120px] text-lg text-white rounded-3xl bg-[#808080]"
+          >
+            Következő
+          </Button>
+          <Button
+            onClick={() => backwardClick}
+            className="grow py-2 text-bold w-[120px] text-lg text-white rounded-3xl bg-[#808080]"
+          >
+            Előző
+          </Button>
         </div>
       </div>
     </div>
