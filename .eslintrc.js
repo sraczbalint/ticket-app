@@ -1,6 +1,6 @@
 module.exports = {
   // Configuration for JavaScript files
-  extends: ["airbnb-base", "plugin:prettier/recommended", "prettier"],
+  extends: ["airbnb-base", "plugin:prettier/recommended"],
   rules: {
     "prettier/prettier": [
       "error",
@@ -72,7 +72,7 @@ module.exports = {
         "prefer-destructuring": "off",
         "no-useless-return": "off",
         "no-nested-ternary": "off",
-        "no-unused-import": "warn",
+        "no-param-reassign": 0,
       },
     },
   ],
