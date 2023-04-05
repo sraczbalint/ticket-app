@@ -35,12 +35,13 @@ module.exports = {
           },
         ],
         "no-console": [
-          "error",
+          "warn",
           {
             allow: ["warn", "error"],
           },
         ],
         "@typescript-eslint/no-shadow": "off",
+        "@typescript-eslint/no-empty-interface": "off",
         "react/jsx-filename-extension": "off",
         "react/destructuring-assignment": "off", // Vscode doesn't support automatically destructuring, it's a pain to add a new variable
         "react/require-default-props": "off", // Allow non-defined react props as undefined

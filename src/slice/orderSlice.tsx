@@ -1,36 +1,47 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-interface TicketProps {
-  type: string;
-  quantity: number;
-  price: number;
+interface OrderProps {
+  name: string;
+  email: string;
+  fullPrice: number;
+  tickets: TicketProps[];
 }
 
-const initialState = {
+export interface TicketProps {
+  id: number | string;
+  name: string;
+  quantity: number;
+  price: number;
+  isPrinted: boolean;
+  isSent: boolean;
+}
+
+interface NameAndEmailProps {
+  name: string;
+  email: string;
+}
+
+const initialState: OrderProps = {
   name: "",
   email: "",
-  fullprice: 0,
-  tickets: [
-    {
-      type: "",
-      quantity: 0,
-      price: 0,
-    },
-  ],
+  fullPrice: 0,
+  tickets: [],
 };
 
 export const orderSlice = createSlice({
   name: "orderDetails",
   initialState,
   reducers: {
-    updateName: (state, action: PayloadAction<string>) => {
-      state.name = action.payload;
-    },
-    updateEmail: (state, action: PayloadAction<string>) => {
-      state.email = action.payload;
+    updateNameAndEmail: (state, action: PayloadAction<NameAndEmailProps>) => {
+      state.name = action.payload.name;
+      state.email = action.payload.email;
     },
     updateTickets: (state, action: PayloadAction<TicketProps[]>) => {
       state.tickets = action.payload;
+      state.tickets.map((ticket) => {
+        state.fullPrice += ticket.price * ticket.quantity;
+        return null;
+      });
     },
     resetState: (state) => {
       state = initialState;
@@ -38,7 +49,7 @@ export const orderSlice = createSlice({
   },
 });
 
-export const { updateName, updateEmail, updateTickets, resetState } =
+export const { updateNameAndEmail, updateTickets, resetState } =
   orderSlice.actions;
 
 export default orderSlice.reducer;

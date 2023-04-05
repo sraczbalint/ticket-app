@@ -11,11 +11,11 @@ interface BreadCrumbsProps {
 export const BreadCrumbs: FunctionComponent<
   PropsWithChildren<BreadCrumbsProps>
 > = () => {
-  const pages = useSelector((state: RootState) => state.page);
+  const pages = useSelector((state: RootState) => state.page.components);
   return (
     <div className="flex flex-row gap-5 justify-center ">
       {pages.map((page) => (
-        <div className="flex flex-col items-center w-[100px]">
+        <div key={page.id} className="flex flex-col items-center w-[100px]">
           <div className="h-6 w-6 flex items-center justify-center text-black bg-[#3b2525] font-semibold rounded-full text-sm  ">
             {!page.status && (
               <Icon

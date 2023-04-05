@@ -1,4 +1,4 @@
-import { FunctionComponent, PropsWithChildren } from "react";
+import { FunctionComponent, PropsWithChildren, ReactNode } from "react";
 import { Icon } from "./Icon";
 
 /**
@@ -6,11 +6,13 @@ import { Icon } from "./Icon";
  */
 
 interface ButtonProps {
-  icon?: string;
+  icon?: React.ReactElement | string;
   iconClassname?: string;
   className?: string;
   divClassName?: string;
-  onClick: () => void;
+  disabled?: boolean;
+  children?: ReactNode;
+  onClick?: () => void;
 }
 
 export const Button: FunctionComponent<PropsWithChildren<ButtonProps>> = ({
@@ -20,11 +22,13 @@ export const Button: FunctionComponent<PropsWithChildren<ButtonProps>> = ({
   divClassName,
   children,
   onClick,
+  disabled,
   ...props
 }) => {
   return (
     <div className={`${divClassName}`}>
       <button
+        disabled={disabled}
         className={`py-2 px-4 flex justify-center font-semibold rounded-xl shadow-md cursor-pointer ${className}`}
         {...props}
         onClick={onClick}
