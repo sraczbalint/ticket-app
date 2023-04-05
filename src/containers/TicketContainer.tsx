@@ -2,13 +2,21 @@ import React, { FunctionComponent, useState } from "react";
 import { Button } from "atoms/Button";
 import { DummyData } from "dummy";
 import { AiOutlineMinus, AiOutlinePlus } from "react-icons/ai";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { TicketProps, updateTickets } from "slice/orderSlice";
-import { updateCurrentComponent } from "slice/wizardPageSlice";
+import {
+  updateComponents,
+  updateCurrentComponent,
+} from "slice/wizardPageSlice";
+import { RootState } from "store";
 import { FooterNavButton } from "./FooterNavButton";
 
 export const TicketContainer: FunctionComponent = () => {
   const [tickets, setTickets] = useState<TicketProps[]>(DummyData);
+  const currentComponent = useSelector(
+    (state: RootState) => state.page.current
+  );
+
   const dispatch = useDispatch();
 
   const handleAddQuantity = (ticket: TicketProps) => {
@@ -60,6 +68,7 @@ export const TicketContainer: FunctionComponent = () => {
       <FooterNavButton
         forwardClick={() => {
           dispatch(updateCurrentComponent("Kosár"));
+          dispatch(updateComponents(currentComponent));
           dispatch(updateTickets(tickets));
         }}
       />

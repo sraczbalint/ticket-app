@@ -21,7 +21,7 @@ const initialState: PageProps = {
     {
       id: 1,
       name: "Jegyek kiválasztása",
-      status: false,
+      status: true,
     },
     {
       id: 2,
@@ -48,9 +48,10 @@ export const wizardPageSlice = createSlice({
     // TODO add payloadAction to updateWizard
     updateComponents: (state, action) => {
       state.components.map((obj) => {
-        if (obj.id === action.payload.id) {
-          return { ...obj, status: !obj.status };
+        if (obj.name === action.payload) {
+          obj.status = false;
         }
+
         return obj;
       });
     },

@@ -1,12 +1,18 @@
 import React, { FunctionComponent } from "react";
 
 import { useDispatch, useSelector } from "react-redux";
-import { updateCurrentComponent } from "slice/wizardPageSlice";
+import {
+  updateComponents,
+  updateCurrentComponent,
+} from "slice/wizardPageSlice";
 import { RootState } from "store";
 import { FooterNavButton } from "./FooterNavButton";
 
 export const BagContainer: FunctionComponent = () => {
   const tickets = useSelector((state: RootState) => state.order.tickets);
+  const currentComponent = useSelector(
+    (state: RootState) => state.page.current
+  );
 
   const dispatch = useDispatch();
 
@@ -30,6 +36,10 @@ export const BagContainer: FunctionComponent = () => {
       <FooterNavButton
         forwardClick={() => {
           dispatch(updateCurrentComponent("Fizetési adatok"));
+          dispatch(updateComponents(currentComponent));
+        }}
+        backwardClick={() => {
+          dispatch(updateCurrentComponent("Jegyek kiválasztása"));
         }}
       />
     </div>

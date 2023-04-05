@@ -1,9 +1,13 @@
 import React, { FunctionComponent, useState } from "react";
 import { Input } from "atoms/Input";
 
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { updateNameAndEmail } from "slice/orderSlice";
-import { updateCurrentComponent } from "slice/wizardPageSlice";
+import {
+  updateComponents,
+  updateCurrentComponent,
+} from "slice/wizardPageSlice";
+import { RootState } from "store";
 import { FooterNavButton } from "./FooterNavButton";
 
 interface OrderDataProps {
@@ -17,6 +21,9 @@ export const DetailsContainer: FunctionComponent = () => {
     email: "",
   });
   const dispatch = useDispatch();
+  const currentComponent = useSelector(
+    (state: RootState) => state.page.current
+  );
 
   return (
     <div className=" flex flex-col justify-between w-full h-full px-[24px]">
@@ -35,7 +42,8 @@ export const DetailsContainer: FunctionComponent = () => {
 
       <FooterNavButton
         forwardClick={() => {
-          dispatch(updateCurrentComponent("Fizetési adatok"));
+          dispatch(updateCurrentComponent("Jegyek küldése"));
+          dispatch(updateComponents(currentComponent));
           dispatch(updateNameAndEmail(orderdata));
         }}
         backwardClick={() => {

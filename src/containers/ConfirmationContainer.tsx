@@ -1,7 +1,10 @@
 import React, { FunctionComponent } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { resetState } from "slice/orderSlice";
-import { updateCurrentComponent } from "slice/wizardPageSlice";
+import {
+  updateComponents,
+  updateCurrentComponent,
+} from "slice/wizardPageSlice";
 import { RootState } from "store";
 import { FooterNavButton } from "./FooterNavButton";
 
@@ -20,6 +23,7 @@ export const ConfirmationContainer: FunctionComponent = () => {
       <FooterNavButton
         forwardClick={() => {
           dispatch(updateCurrentComponent("Jegyek kiválasztása"));
+
           dispatch(resetState());
         }}
       />
